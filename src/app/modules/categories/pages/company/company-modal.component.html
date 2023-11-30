@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons [slot]="header ? 'end':'start'">
+      <ion-button (click)="onClose(header)">
+        <ion-icon slot="icon-only" [name]="header ? 'close-outline':'chevron-back'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ "CHOOSE PROVIDER" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="(item$ | async) as item">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="danger" (click)="onCancelService(item)">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-segment mode="ios" [value]="value" (ionChange)="segment($event)">
+      <ion-segment-button value="LIST">
+        <ion-label>{{ "LIST" | translate | titlecase }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="MAPS">
+        <ion-label>{{ "MAPS" | translate | titlecase }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="mt-1" *ngIf="value === 'MAPS'; else list">
+      <ng-container *ngIf="apiLoaded | async">
+        <google-map height="86vh" width="100%" [options]="maps">
+          <map-marker
+            #marker="mapMarker" *ngFor="let provider of provider$ | async; let index =index"
+            [position]="provider.position" (mapClick)="openInfoWindow(marker, provider)">
+          </map-marker>
+          <map-info-window>
+            <ion-label>
+              <p style="font-weight: 400; margin-bottom: .15rem">
+                {{ "SERVICE.DISTANCE" | translate | titlecase }}:
+                {{ info?.distance | unitConverted }}
+              </p>
+              <h2 style="margin-bottom: .20rem;">{{ info?.name }}</h2>
+              <p class="mb-1">{{ info?.address }}</p>
+            </ion-label>
+            <ion-button size="small" (click)="sendProviderService(item, info)" color="danger">
+              {{ 'SERVICE.SEND' | translate }}
+            </ion-button>
+            <ion-button size="small" (click)="onViewProfileProvider(item, info)" color="primary">
+              {{ 'SERVICE.VIEW INFO' | translate }}
+            </ion-button>
+          </map-info-window>
+        </google-map>
+      </ng-container>
+    </div>
+    <ng-template #list>
+      <div class="container">
+        <div id="block" class="text-center my-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="distance" value="distance" checked [(ngModel)]="filter" (ngModelChange)="onDistance($event)">
+            <label class="form-check-label" for="distance">{{ 'FILTER.DISTACE' | translate }}</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="popular" value="popular" [(ngModel)]="filter" (ngModelChange)="onDistance($event)">
+            <label class="form-check-label" for="popular">{{ 'FILTER.POPULAR' | translate }}</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="nuevos" value="nuevos" [(ngModel)]="filter" (ngModelChange)="onDistance($event)">
+            <label class="form-check-label" for="nuevos">{{ 'FILTER.NEWS' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <ion-list>
+        <ion-item *ngFor="let provider of provider$ | async">
+          <ion-label>
+            <h3>{{ provider.name | titlecase }}</h3>
+            <app-stars-widget [score]="provider.user?.score"></app-stars-widget>
+            <p>
+              {{ "SERVICE.DISTANCE" | translate | titlecase }}
+              {{ provider.distance }}
+            </p>
+            <p class="ion-text-wrap">{{ provider.address }}</p>
+            <ion-button (click)="sendProviderService(item, provider)" color="danger" size="small" class="me-2">
+              {{ "SERVICE.SEND" | translate | uppercase }}
+            </ion-button>
+            <ion-button (click)="onViewProfileProvider(item, provider)" color="primary" size="small">
+              {{ "SERVICE.VIEW INFO" | translate | uppercase }}
+            </ion-button>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-template>
+  </ng-container>
+</ion-content>

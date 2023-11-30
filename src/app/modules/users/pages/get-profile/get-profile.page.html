@@ -1,0 +1,74 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title style="color: #fafafa">
+      {{ "SIGN.PROFILE" | translate | uppercase }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onBack()">
+        <ion-icon slot="icon-only" name="close-circle" style="color: '#fafafa'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="(user$ | async) as user">
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="toolbar-rounded">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-3">
+            <ion-avatar slot="start" *ngIf="user.picture; else notAvatar">
+              <img [src]="user.picture" alt="avatar" />
+            </ion-avatar>
+          </div>
+          <div class="col-9">
+            <h3 class="white-text ion-text-wrap mb-0">
+              {{ user.first_name }} {{ user.last_name }}
+            </h3>
+            <p class="white-text ion-text-wrap mb-0">
+              {{ user.email }}
+            </p>
+            <app-stars-widget></app-stars-widget>
+          </div>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <div class="container mt-4">
+    <ion-segment value="editar" (ionChange)="segmentChanged($event)" mode="ios">
+      <ion-segment-button value="editar">
+        {{ "SIGN.EDIT" | translate | titlecase }}
+      </ion-segment-button>
+      <ion-segment-button value="password">
+        {{ "SIGN.FORGOT_PWD" | translate | titlecase }}
+      </ion-segment-button>
+    </ion-segment>
+    <app-editar [user]="user" *ngIf="segment ==='editar'; else change"></app-editar>
+  </div>
+</ion-content>
+
+<ng-template #change>
+  <app-change-password></app-change-password>
+</ng-template>
+
+<ng-template #loading>
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  <div class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ng-template>
+
+<ng-template #loading2>
+  <div class="spinner2">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ng-template>
+
+
+
+<ng-template #notAvatar>
+  <ion-avatar slot="start">
+    <div class="meka">
+      <p>m</p>
+    </div>
+  </ion-avatar>
+</ng-template>

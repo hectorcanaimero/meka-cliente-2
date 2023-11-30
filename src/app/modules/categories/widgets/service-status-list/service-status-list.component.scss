@@ -1,0 +1,47 @@
+ion-item {
+  --background: #fafafa;
+  --color: var(--ion-meka-principal);
+  ion-label {
+    --color: rgb(55, 55, 55);
+    h1, h2, h3, p {
+      color: rgb(55, 55, 55);
+    }
+    .code {
+      font-weight: 600;
+    }
+  }
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+.notFound {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+  ion-label {
+    --color: rgb(125, 125, 125);
+    text-align: center;
+    ion-icon {
+      --ionicon-stroke-width: 36px;
+      font-size: 50px;
+      color: rgb(125, 125, 125);
+    }
+    h2 {
+      color: rgb(125, 125, 125);
+      font-weight: 600;
+      font-size: 2rem;
+    }
+  }
+}
+
+
+.icon-chat {
+  color: var(--ion-meka-primary);
+}

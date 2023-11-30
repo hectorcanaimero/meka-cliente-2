@@ -1,0 +1,20 @@
+<app-header></app-header>
+<ion-content>
+  <div class="container mt-2">
+    <ion-list lines="none">
+      <ion-item *ngIf="(service$ | async ) as service" (click)="onGoToChat(service)">
+        <ion-label>
+          <h2>{{ service.code }}</h2>
+          <h5>{{ service.type_expert | translate }}</h5>
+          <h5 class="execute">{{ service.status | translate | titlecase }}</h5>
+          <p>{{ service.company_request.name }}</p>
+          <p>{{ service.description }}</p>
+        </ion-label>
+        <ion-text color="primary" slot="end">
+          <p class="mb-0">chat</p>
+          <p>{{ total$ | async }}</p>
+        </ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

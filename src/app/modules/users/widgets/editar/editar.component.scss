@@ -1,0 +1,42 @@
+#container {
+  background: #fafafa;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  ion-list {
+    background: #fafafa;
+    ion-item{
+      --background: none;
+      ion-label {
+        margin-bottom: .5rem;
+        --color: var(--ion-meka-primary);
+        h2, h4 { color: var(--ion-meka-primary); }
+        p { color: #bcbcbc; }
+        h4 { font-size: 11px; }
+      }
+      ion-input {
+        --background: #d8d8d8;
+        border-radius: 15px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+        --color: var(--ion-meka-primary);
+        --placeholder-color: var(--ion-meka-primary);
+      }
+      ion-select {
+        width: 100%;
+        background: #d8d8d8;
+        margin-bottom: 1rem;
+        border-radius: 15px;
+        color: var(--ion-meka-primary);
+        --padding-start: 10px;
+        --padding-end: 10px;
+        --placeholder-color: var(--ion-meka-primary);
+      }
+    }
+  }
+}
+
+
+.phone-label {
+  --min-height : 40px !important;
+}

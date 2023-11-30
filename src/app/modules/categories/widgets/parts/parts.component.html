@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-12">
+    <div class="box">
+      <form [formGroup]="formReact">
+        <ion-list lines="none">
+          <ion-item class="mb-2">
+            <ion-label>{{ "VEHICLES" | translate | titlecase }}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select..." (ionChange)="fiterBrand($event)">
+              <ion-select-option [value]="item.id" *ngFor="let item of vehicles$ | async">
+                {{ item.name | translate | uppercase }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="mb-2">
+            <ion-label>{{ "BRAND" | translate | titlecase }}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select..." (ionChange)="filterModel($event)">
+              <ion-select-option [value]="item.id"  *ngFor="let item of brands$ | async">{{ item.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="mb-2">
+            <ion-label>{{ "MODEL" | translate | titlecase }}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select..." formControlName="vehicle_model">
+              <ion-select-option [value]="item.id"  *ngFor="let item of models$ | async">{{ item.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">{{ "YEAR" | translate | titlecase }}</ion-label>
+            <ion-input formControlName="year" inputmode="numeric" maxlength="4" minlength="4"
+              placeholder="YYYY"></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label position="stacked">{{ "PROBLEM" | translate | titlecase }}</ion-label>
+            <ion-textarea [rows]="3" placeholder="Enter more information here..." formControlName="description"></ion-textarea>
+          </ion-item>
+          <ion-item lines="none" class="mb-2">
+            <ion-label>{{ "CONDITION" | translate | titlecase }}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select..." formControlName="vehicle_condition">
+              <ion-select-option [value]="item.id"  *ngFor="let item of conditions$ | async">{{ item.name | translate }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item (click)="capturePhoto()">
+            <ion-label>{{ "ADD PHOTO" | translate | titlecase }}</ion-label>
+            <ion-button expand="block" fill="clear" shape="round">
+              <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+        <div class="my-2">
+          <swiper-container
+            slide-per-view="1.2"
+            [autoplay]="true"
+            [freemode]="true"
+            space-Between="20">
+            <swiper-slide *ngFor="let item of capture; let index = index">
+              <div class="images">
+                <ion-icon name="close-circle" (click)="removeCapture(item)"></ion-icon>
+                <img [src]="item" class="img-fluid">
+              </div>
+            </swiper-slide>
+          </swiper-container>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center mt-4">
+  <div class="col-6">
+    <ion-button  expand="block" color="warning" (click)="onSubmit()" [disabled]="formReact.invalid">
+      {{ "GLOBAL.SEND" | translate | uppercase }}
+    </ion-button>
+  </div>
+</div>

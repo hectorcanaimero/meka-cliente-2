@@ -1,0 +1,45 @@
+<ng-container *ngIf="(service$ | async) as service" >
+  <ng-container *ngIf="service.status === 'open'">
+    <section id="service" class="mb-3" (click)="goToOpenService()">
+      <div class="container">
+        <ion-card mode="md">
+          <ion-card-content>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>{{ service._id | slice:0:7 }}...</h2>
+                <p><strong>{{ service.status | translate | uppercase }}</strong></p>
+                <h3 style="font-weight: 600;">
+                  {{ service.createdAt | date: 'dd-MM-yyyy'}},
+                  {{ service.createdAt | date: 'hh:mm'}}
+                </h3>
+              </ion-label>
+              <ion-icon slot="end" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </section>
+  </ng-container>
+  <ng-container *ngIf="service.status === 'finished'">
+    <section id="service" class="mb-3" (click)="setRating(service)">
+      <div class="container">
+        <ion-card mode="md">
+          <ion-card-content>
+            <ion-item lines="none">
+              <ion-label>
+                <p> {{ service.status | translate | uppercase }} </p>
+                <h2>{{ 'CODE' | translate }}: {{ service._id | slice:0:7 }}...</h2>
+                <h3 style="font-weight: 700">{{ service.company.name }}</h3>
+                <p> {{ 'RATE_THE_SERVICE' | translate | titlecase }}</p>
+                <h3>
+                </h3>
+              </ion-label>
+              <ion-icon color="tertiary" slot="end" name="ellipse" size="large"></ion-icon>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </section>
+  </ng-container>
+</ng-container>
+

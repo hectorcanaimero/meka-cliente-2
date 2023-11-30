@@ -1,0 +1,15 @@
+ion-icon {
+  margin-right: .25rem;
+}
+
+.entry {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 auto;
+  ion-icon {
+    font-size: 2.7rem;
+    margin-right: .5rem;
+  }
+}

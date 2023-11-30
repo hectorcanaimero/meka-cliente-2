@@ -1,0 +1,35 @@
+<div class="px-2 pt-2 pb-5">
+  <!-- <ion-slides mode="ios" [options]="options">
+    <ion-slide *ngFor="let item of entry$ | async">
+      <ng-container *ngIf="!item.display; else company">
+        <a [href]="item.url">
+          <img [src]="item.picture" class="img-fluid" [alt]="item.name">
+        </a>
+      </ng-container>
+      <ng-template #company>
+        <div (click)="goToCompany(item.url)">
+          <img [src]="item.picture" class="img-fluid" [alt]="item.name">
+        </div>
+      </ng-template>
+    </ion-slide>
+  </ion-slides> -->
+  <swiper-container
+    slide-per-view="1.1"
+    [autoplay]="true"
+    [freemode]="true"
+    space-Between="20">
+    <swiper-slide *ngFor="let item of entry$ | async">
+      <ng-container *ngIf="!item.display; else company">
+        <a [href]="item.url">
+          <img [src]="item.picture" class="img-fluid" [alt]="item.name">
+        </a>
+      </ng-container>
+      <ng-template #company>
+        <div (click)="goToCompany(item.url)">
+          <img [src]="item.picture" class="img-fluid" [alt]="item.name">
+        </div>
+      </ng-template>
+    </swiper-slide>
+  </swiper-container>
+
+</div>

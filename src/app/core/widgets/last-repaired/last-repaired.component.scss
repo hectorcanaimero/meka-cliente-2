@@ -1,0 +1,47 @@
+h3 {
+  font-weight: 600;
+}
+ion-slides {
+  ion-slide {
+    .box {
+      width: 100%;
+      min-height: 90px;
+      background-color: #fff;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .maps {
+        align-self: center;
+        padding-top: 20px;
+        width: 20%;
+        height: 90px;
+        background-color: #dedede;
+        border-radius: 10px 0 0 10px;
+      }
+      .items {
+        text-align: left !important;
+        width: 80%;
+        padding: .5rem;
+        position: relative;
+        .code {
+          font-weight: 600;
+          font-size: 12px;
+        }
+        .date {
+          font-size: 11px;
+          float: right;
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}

@@ -1,0 +1,25 @@
+ion-content {
+  --background: #fafafa;
+  ion-segment {
+    margin: .5rem 0 0;
+    --background: #d8d8d8;
+    ion-segment-button{
+      --indicator-color: #fafafa;
+    }
+  }
+  ion-list {
+    background: #fafafa;
+  }
+}
+
+.notFound {
+  margin-top: 1.5rem;
+}
+
+.notfound-title {
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+}

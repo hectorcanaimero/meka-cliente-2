@@ -1,0 +1,85 @@
+<ng-container *ngIf="appVersion">
+  <ng-container *ngIf="(user$ | async) as user">
+    <ion-menu side="end" menuId="first" contentId="main">
+      <ion-header>
+        <ion-toolbar>
+          <ion-item lines="none" class="my-3">
+            <ion-avatar slot="start" *ngIf="user.picture; else notAvatar">
+              <img [src]="user.picture" [alt]="user.first_name" />
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+              <h4>{{ user.email }}</h4>
+              <ng-container>
+                  <p style="color: var(--ion-color-warning) !important">
+                    <span style="font-weight: 600;">{{ user.score.toFixed(1) }}</span>
+                    <ion-icon color="warning" [name]="user.score === 0 ? 'star-outline': 'star'" class="ms-1"></ion-icon>
+                  </p>
+                  <p class="nivel">{{ user.nivel }}</p>
+              </ng-container>
+            </ion-label>
+          </ion-item>
+          <ion-item detail="true" class="mt-2" (click)="onLink('/user/profile')">
+            <ion-label><h2>{{ "SIDEMENU.PROFILE" | translate }}</h2></ion-label>
+          </ion-item>
+          <ion-item detail="true" class="mt-2" (click)="onLink('/chat/soporte')">
+            <ion-label><h2>{{ "SIDEMENU.MESSAGES" | translate }}</h2></ion-label>
+          </ion-item>
+          <ion-item detail="true" class="mt-2" (click)="onRemove(user._id)">
+            <ion-label class="ion-text-wrap"><h2>{{ "SIDEMENU.REMOVE_ACCOUNT" | translate }}</h2></ion-label>
+          </ion-item>
+          <ion-item lines="none"  (click)="signOut()" class="my-1">
+            <ion-label>
+              <h2>{{ "SIDEMENU.SIGN_OUT" | translate }}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-item>
+            <ion-label>{{ "SIDEMENU.PAGES" | translate }}</ion-label>
+          </ion-item>
+          <!-- <ion-menu-toggle auto-hide="false">
+            <ion-item class="my-1" lines="none" detail="false">
+              <ion-label>{{ 'SIDEMENU.HELP_CENTER' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngFor="let item of menus" (click)="onPost(item)">
+            <ion-item class="my-1" lines="none" detail="false">
+              <ion-label>{{ item | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+          <ion-menu-toggle auto-hide="false">
+            <ion-item class="my-1" lines="none" detail="false" (click)="openBrowser('https://www.meka.do/')">
+              <ion-label>{{ 'SIDEMENU.ABOUT' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-item>
+            <ion-label>{{ "SIDEMENU.SOCIAL" | translate }}</ion-label>
+          </ion-item>
+          <ion-menu-toggle auto-hide="false" *ngFor="let item of social">
+            <ion-item class="my-1" lines="none" detail="false" (click)="openBrowser(item.url)">
+              <ion-icon [name]="item.icon" slot="start"></ion-icon>
+              <ion-label>{{ item.name | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer class="ion-no-border">
+        <ion-toolbar mode="ios">
+          <ion-title>
+            <p class="small mb-0">{{ appVersion.name || 'Meka' }} v{{ appVersion.version || '2.0.0' }}</p>
+          </ion-title>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-menu>
+    <ng-template #notAvatar>
+      <ion-avatar slot="start">
+        <div class="meka">
+          <p>{{ getName(user.first_name, user.last_name) }}</p>
+        </div>
+      </ion-avatar>
+    </ng-template>
+  </ng-container>
+</ng-container>

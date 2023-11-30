@@ -1,0 +1,19 @@
+ion-card {
+  margin: 0;
+  --background: #eeeded;
+  ion-card-content {
+    padding: 5px;
+    ion-item {
+      --background: none;
+      ion-label {
+        --color: var(--ion-meka-primary)
+        p, h2,ion-icon {
+          color: var(--ion-meka-primary)
+        }
+      }
+      ion-icon {
+        color: var(--ion-meka-primary)
+      }
+    }
+  }
+}

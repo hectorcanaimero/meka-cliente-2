@@ -1,0 +1,123 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>{{ 'PROVIDER_INFO' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-accordion-group value="detail" mode="ios">
+    <ion-accordion value="detail">
+      <ion-item class="title" slot="header">
+        <ion-icon slot="start" name="list"></ion-icon>
+        <ion-label><strong>{{ 'INFORMATION' | translate | titlecase }}</strong></ion-label>
+      </ion-item>
+      <ion-list lines="none" slot="content">
+        <ion-item>
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-label>{{ provider.name }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="build-outline"></ion-icon>
+          <ion-label>{{ provider.typeCompany.name | translate |titlecase }}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="banner">
+          <ion-icon slot="start" name="call-outline"></ion-icon>
+          <ion-label>{{ provider.user.phone }}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="banner">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          <ion-label>{{ provider.user.email }}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="provider.typeCompany.type !== 1">
+          <ion-icon slot="start" name="business-outline"></ion-icon>
+          <ion-label class="ion-text-wrap">{{ provider.address }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="star" color="warning"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            <strong>{{ provider.user.score }} - {{ provider.user.nivel | uppercase }}</strong>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion value="payment">
+      <ion-item class="title" slot="header">
+        <ion-icon slot="start" name="list"></ion-icon>
+        <ion-label><strong>{{ 'PAYMENT' | translate | titlecase }}</strong></ion-label>
+      </ion-item>
+      <ion-list lines="none" slot="content">
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <ion-badge color="primary" *ngFor="let code of provider.payment" class="mx-1">
+              {{ code | translate }}
+            </ion-badge>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion value="services">
+      <ion-item class="title" slot="header">
+        <ion-icon slot="start" name="list"></ion-icon>
+        <ion-label><strong>{{ 'SERVICES' | translate | titlecase }}</strong></ion-label>
+      </ion-item>
+      <ion-list lines="none" slot="content">
+        <ion-item>
+          <ion-label  class="ion-text-wrap">
+            <ion-badge *ngFor="let code of provider.categories" class="mx-1">
+              {{ code.name | translate }}
+            </ion-badge>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <!-- <ion-accordion value="location">
+      <ion-item class="title" slot="header">
+        <ion-icon slot="start" name="location-outline"></ion-icon>
+        <ion-label><strong>{{ 'LOCATION' | translate | titlecase }}</strong></ion-label>
+      </ion-item>
+      <ion-list lines="none" slot="content">
+        <agm-map
+          [latitude]="provider.latitude"
+          [longitude]="provider.longitude"
+          [zoom]="18">
+          <agm-marker
+            [latitude]="+provider.latitude"
+            [longitude]="+provider.longitude">
+          </agm-marker>
+        </agm-map>
+      </ion-list>
+    </ion-accordion> -->
+    <ion-accordion value="comments">
+      <ion-item class="title" slot="header">
+        <ion-icon slot="start" name="chatbubble-outline"></ion-icon>
+        <ion-label><strong>{{ 'COMMENTS' | translate | titlecase }}</strong></ion-label>
+      </ion-item>
+      <ion-list slot="content">
+        <ng-container *ngIf="(comments$ | async) as comments; else notFound">
+          <ion-item *ngFor="let comment of comments">
+            <ion-label>
+              <app-stars-widget [score]="comment.score_company"></app-stars-widget>
+              <p>{{ comment.updatedAt | amLocale: language | amTimeAgo  }}</p>
+              <p>{{ comment.comment_company || 'NOT_FOUND' | translate }}</p>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+        <ng-template #notFound>
+          <ion-item class="map-wrapper">
+            <ion-label>
+              <h1 class="ion-padding-horizontal">{{ 'NOT_FOUND' | translate | titlecase }}</h1>
+            </ion-label>
+          </ion-item>
+        </ng-template>
+      </ion-list>
+    </ion-accordion>
+  </ion-accordion-group>
+  <ion-footer class="ion-no-border ion-margin-top" *ngIf="service">
+    <ion-toolbar mode="ios" >
+      <ion-button (click)="sendServiceByProvider()" expand="block" color="warning">
+        {{ 'SERVICE.SEND' | translate | uppercase }}
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
+
+

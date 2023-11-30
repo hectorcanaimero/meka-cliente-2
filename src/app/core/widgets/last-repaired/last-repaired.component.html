@@ -1,0 +1,51 @@
+<div class="container my-3" *ngIf="(services$ | async) as services; else spinner">
+  <ion-label>
+    <h3 class="mb-3">{{ titulo | translate }}</h3>
+  </ion-label>
+  <!-- <ion-slides #slides [options]="options">
+    <ion-slide class="text-left" *ngFor="let item of services" (click)="openService(item)">
+      <div class="box">
+        <div class="maps">
+          <ion-icon slot="icon-only" name="location" size="large" color="danger"></ion-icon>
+        </div>
+        <div class="items">
+          <ion-label>
+            <p class="date">{{ item.date_reg | amTimeAgo  }}</p>
+            <p class="code">{{ item.code }}</p>
+            <h2 class="brand">{{ item.vehicle_model?.brand }} {{ item.vehicle_model?.model }}</h2>
+            <p class="type">{{ item.type_expert }}</p>
+          </ion-label>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides> -->
+  <div class="my-2">
+    <swiper-container
+      slide-per-view="1.1"
+      [autoplay]="true"
+      [freemode]="true"
+      space-Between="20">
+      <swiper-slide *ngFor="let item of services" (click)="openService(item)">
+        <div class="box">
+          <div class="maps">
+            <ion-icon slot="icon-only" name="location" size="large" color="danger"></ion-icon>
+          </div>
+          <div class="items">
+            <ion-label>
+              <p class="date">{{ item.date_reg | amTimeAgo  }}</p>
+              <p class="code">{{ item.code }}</p>
+              <h2 class="brand">{{ item.vehicle_model.brand }} {{ item.vehicle_model.model }}</h2>
+              <p class="type">{{ item.type_expert }}</p>
+            </ion-label>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</div>
+
+<ng-template #spinner>
+  <div class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ng-template>

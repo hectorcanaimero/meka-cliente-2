@@ -1,0 +1,38 @@
+<app-header></app-header>
+<ion-content>
+  <ion-segment class="sticky-top" mode="ios" [value]="toggle" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="HISTORY">
+      <ion-label>{{ 'HISTORY' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="CANCELLED">
+      <ion-label>{{ 'CANCELLED' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- <ion-progress-bar type="indeterminate" *ngIf="progress"></ion-progress-bar> -->
+  <ng-container *ngIf="toggle === 'HISTORY'">
+    <ion-list lines="none" *ngIf="finished$ && totalFinished > 0; else notFound">
+      <ng-container *ngFor="let item of finished$ | async">
+        <app-service-status-list [item]="item"></app-service-status-list>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="toggle === 'CANCELLED'">
+    <ion-list lines="none" *ngIf="cancelled$ && totalCancelled > 0; else notFound">
+      <ng-container *ngFor="let item of cancelled$ | async">
+        <app-service-status-list [item]="item"></app-service-status-list>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+</ion-content>
+<ng-template #notFound>
+  <ion-card color="warning" class="notFound">
+    <ion-card-content>
+      <ion-label>
+        <h2 class="notfound-title">
+          {{ 'NOT_FOUND' | translate }}
+        </h2>
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
+

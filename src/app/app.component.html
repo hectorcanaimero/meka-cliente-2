@@ -1,3 +1,5 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <app-network-widget></app-network-widget>
+  <app-side-menu-widget [appVersion]="appVersion"></app-side-menu-widget>
+  <ion-router-outlet id="main" (activate)="activate($event)"></ion-router-outlet>
 </ion-app>

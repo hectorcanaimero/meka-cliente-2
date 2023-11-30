@@ -1,16 +1,26 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  keycloak: {
+    server_host: 'YOUR_SERVER_HOST',
+    client_id: 'YOUR_CLIENT_ID',
+    redirect_url: 'com.ionic.sso://callback',
+    end_session_redirect_url: 'com.ionic.sso://endsession',
+    scopes: 'openid offline_access',
+    pkce: false
+  },
+  firebase: {
+    projectId: 'meka-app',
+    measurementId: 'G-JG99NW4H1J',
+    locationId: 'southamerica-east1',
+    messagingSenderId: '882572463657',
+    storageBucket: 'meka-app.appspot.com',
+    authDomain: 'meka-app.firebaseapp.com',
+    apiKey: 'AIzaSyAZQUQ65vngYX7_MWDqYDZ5utNn9yGkiWo',
+    appId: '1:882572463657:web:96f5f79d52d0ef1ae69638',
+  },
+  api: {
+    version: 'api/v2',
+    url: 'https://api.meka.do',
+  },
+  maps: 'AIzaSyAylhtwYmgO_nuFZsQzvm_z6vAOvbEk80Q',
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

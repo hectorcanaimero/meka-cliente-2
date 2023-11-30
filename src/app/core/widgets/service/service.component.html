@@ -1,0 +1,28 @@
+<ng-container *ngIf="(service$ | async) as service" >
+  <section id="service" class="mb-3">
+    <div class="container" *ngIf="service.status === 'in_process' || service.status === 'accepted'">
+      <ion-card mode="md">
+        <ion-card-content>
+          <ion-item lines="none">
+            <ion-label (click)="openService(service)">
+              <h2>{{ service._id | slice:0:7 }}</h2>
+              <p>{{ service.status | translate | uppercase }}</p>
+              <h3><strong>{{ service.company.name }}</strong></h3>
+            </ion-label>
+            <ion-icon (click)="openService(service)"
+            [color]="service.status === 'in_process' ? 'warning' : 'success'"
+            slot="end" name="ellipse" size="large"></ion-icon>
+            <div slot="end" class="bubble" *ngIf="service.status === 'accepted'">
+              <ion-icon name="chatbubble-ellipses-outline" size="large" (click)="goToChat(service._id)">
+              </ion-icon>
+              <ng-container *ngIf="(total$ | async) as total">
+                <ion-badge color="warning">{{ total }}</ion-badge>
+              </ng-container>
+            </div>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+</ng-container>
+

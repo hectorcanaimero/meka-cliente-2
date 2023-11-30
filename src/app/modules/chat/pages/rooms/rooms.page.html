@@ -1,0 +1,58 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>
+      Servicio: {{ uid }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div #content appScrollToBottom class="message" *ngFor="let item of items$ | async">
+    <div class="imessage">
+      <p [ngClass]="item.type === 'LT' ? 'from-them' : 'from-me'">
+        <span *ngIf="item.input ==='TEXT'">{{ item.message }}</span>
+        <span class="acc" *ngIf="item.input ==='ACC'" (click)="playFile(item.name)">
+          <ion-icon name="play"></ion-icon>
+        </span>
+        <!-- <audio controls autoplay *ngIf="item.input ==='ACC'">
+          <source [src]="item.message" type="audio/wav">
+        </audio> -->
+        <span>
+
+        </span>
+          <img *ngIf="item.input ==='IMG'" [src]="item.message" class="img" (click)="openPop(item.message)">
+          <span style="font-size: 10px;">
+            {{item.createdAt.toMillis() | amTimeAgo }}
+          <ion-icon *ngIf="item.type === 'ME' || item.type ==='USER'"
+            name="checkmark-done" [color]="item.status === 'READ' ? 'success' : 'medium'">
+          </ion-icon>
+        </span>
+      </p>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-input *ngIf="!recording" type="text" placeholder="Digite su mensaje..." [(ngModel)]="message"
+      (ionInput)="txtMessage()" mode="ios" (keypress)="sendMessageKeypress($event.keyCode)"></ion-input>
+      <ion-label *ngIf="recording">{{ durationDisplay }}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button  fill="clear" (click)="cameraGet()" *ngIf="!toogleMessage">
+          <ion-icon name="camera" color="info"></ion-icon>
+        </ion-button>
+        <!-- <ion-button #recordBtn fill="clear" *ngIf="!toogleMessage">
+          <ion-icon name="mic" color="success"></ion-icon>
+        </ion-button> -->
+        <ion-button fill="clear" (click)="sendMessage()" *ngIf="toogleMessage">
+          <ion-icon name="send" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

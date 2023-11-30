@@ -1,0 +1,54 @@
+<div id="container" class="mt-3">
+  <form [formGroup]="registerForm">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <ion-list>
+          <ion-item lines="none">
+            <ion-label position="stacked">{{ "SIGN.FIRSTNAME" | translate }} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="first_name" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="registerForm.get('first_name')?.invalid && registerForm.get('first_name')?.touched">
+            <ion-text color="danger" class="form-error">
+              <small>{{ "SIGN.ERROR.FIRSTNAME" | translate }}</small>
+            </ion-text>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label position="stacked">{{ "SIGN.LASTNAME" | translate }} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="last_name" type="text"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="registerForm.get('last_name')?.invalid && registerForm.get('last_name')?.touched">
+            <ion-text color="danger" class="form-error">
+              <small>{{ "SIGN.ERROR.LASTNAME" | translate }}</small>
+            </ion-text>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label position="stacked">{{ "SIGN.EMAIL" | translate }} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required type="email" inputmode="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            <ion-text color="danger" class="form-error">
+              <small>{{ "SIGN.ERROR.EMAIL" | translate }}</small>
+            </ion-text>
+          </ion-item>
+          <ng-container *ngIf="setting && setting.phone">
+            <ion-item class="phone" lines="none">
+              <ion-label position="stacked">{{ "SIGN.PHONE" | translate }} <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input required formControlName="phone" type="phone" inputmode="numeric" placeholder="0000-0000"></ion-input>
+            </ion-item>
+          </ng-container>
+          <ion-item class="idioma" lines="none">
+            <ion-label position="stacked">{{ "SIGN.LANGUAGE" | translate }} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-select [placeholder]="'SIGN.LANGUAGE' | translate" interface="action-sheet" formControlName="language">
+              <ion-select-option *ngFor="let item of idioma" [value]="item.id">{{ item.name  }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="col-8 mt-3">
+        <ion-button (click)="onSubmit()" expand="block" color="warning" shape="round" mode="ios">
+        {{ 'GLOBAL.ACCEPT' | translate }}
+      </ion-button>
+      </div>
+    </div>
+  </form>
+</div>

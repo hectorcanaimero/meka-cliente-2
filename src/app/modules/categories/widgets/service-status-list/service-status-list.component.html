@@ -1,0 +1,16 @@
+<ng-container *ngIf="item">
+  <ion-item button [detail]="false" (click)="openService(item)">
+    <ion-label>
+      <p class="date">{{ item.createdAt | amLocale: language | amTimeAgo  }}</p>
+      <p>{{ item._id | slice:0:7 }}</p>
+      <h2 class="code">{{ item.category.name | translate }}</h2>
+      <h2 class="vehicle"> {{ item.brand.name }} {{ item.model.name }} </h2>
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-avatar slot="end" class="expert">
+        <img [src]="item.category.picture" [alt]="item.category.name"/>
+      </ion-avatar>
+    </ion-buttons>
+  </ion-item>
+</ng-container>
+

@@ -1,0 +1,10 @@
+<ng-container *ngIf="type; else entry">
+  <ion-icon *ngFor="let item of data" [name]="item" color="warning"></ion-icon>
+</ng-container>
+
+
+<ng-template #entry>
+  <div class="entry">
+    <ion-icon *ngFor="let item of data; let index = index;" color="warning" [name]="item" (click)="getClick(index)"></ion-icon>
+  </div>
+</ng-template>

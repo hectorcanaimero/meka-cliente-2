@@ -1,0 +1,21 @@
+ion-tabs{
+  --background: none;
+  background: none;
+
+  ion-tab-bar {
+    --background: #080F18;
+    border-radius: 15px 15px 0 0;
+    height: 55px !important;
+    ion-tab-button {
+      --border: rgb(200, 181, 42);
+      --color-selected:  rgb(200, 181, 42);
+    }
+  }
+  ion-tab-button.tab-selected {
+    border-top: 2px solid rgb(200, 181, 42);
+  }
+}
+
+.text-white {color: #fafafa; }
+.text-danger { visibility: hidden;  }
+

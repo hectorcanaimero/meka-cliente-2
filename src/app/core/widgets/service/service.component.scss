@@ -1,0 +1,35 @@
+ion-card {
+  margin: 0;
+  --background: #eeeded;
+  ion-card-content {
+    padding: 5px;
+    ion-item {
+      --background: none;
+      ion-label {
+        --color: var(--ion-meka-primary)
+        p, h2,ion-icon {
+          color: var(--ion-meka-primary)
+        }
+      }
+      ion-icon {
+        color: var(--ion-meka-primary)
+      }
+    }
+  }
+}
+
+.bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 60px;
+  ion-badge {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+  }
+}

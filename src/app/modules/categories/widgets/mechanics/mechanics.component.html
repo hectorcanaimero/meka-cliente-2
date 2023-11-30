@@ -1,0 +1,93 @@
+<ng-container *ngIf="!active; else serviceOpen">
+  <div class="row">
+    <div class="col-12">
+      <div class="box">
+        <form [formGroup]="formReactive">
+          <ion-list lines="none">
+            <ion-item class="mb-2">
+              <ion-label>{{ "VEHICLES" | translate | titlecase }}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Select..." (ionChange)="getBrand($event)" formControlName="vehicle">
+                <ion-select-option [value]="item._id" *ngFor="let item of vehicles$ | async">
+                  {{ item.name | translate | uppercase }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="mb-2">
+              <ion-label>{{ "BRAND" | translate | titlecase }}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Select..." formControlName="brand"
+                (ionChange)="getModels($event)">
+                <ion-select-option [value]="item._id"  *ngFor="let item of brands$ | async">{{ item.name | uppercase }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="mb-2">
+              <ion-label>{{ "MODEL" | translate | titlecase }}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Select..." formControlName="vehicle_model" formControlName="model">
+                <ion-select-option [value]="item._id"  *ngFor="let item of models$ | async">{{ item.name | uppercase }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">{{ "YEAR" | translate | titlecase }}</ion-label>
+              <ion-input formControlName="year" inputmode="numeric" maxlength="4" minlength="4"
+                placeholder="YYYY"></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="mb-2" *ngIf="autopart">
+              <ion-label>{{ "CONDITION" | translate | titlecase }}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Select..." formControlName="condition">
+                <ion-select-option [value]="item._id"  *ngFor="let item of conditions$ | async">{{ item.name | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">{{ "PROBLEM" | translate | titlecase }}</ion-label>
+              <ion-textarea [rows]="3" [autoGrow]="true" formControlName="description"></ion-textarea>
+            </ion-item>
+            <ion-item (click)="capturePhoto()">
+              <ion-label>{{ "ADD PHOTO" | translate | titlecase }}</ion-label>
+              <ion-button expand="block" fill="clear" shape="round">
+                <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <div class="mt-2">
+              <swiper-container
+                slide-per-view="1.2"
+                [autoplay]="true"
+                [freemode]="true"
+                space-Between="20">
+                <swiper-slide *ngFor="let item of capture; let index = index">
+                  <div class="images">
+                    <ion-icon name="close-circle" (click)="removeCapture(item)"></ion-icon>
+                    <img [src]="item" class="img-fluid">
+                  </div>
+                </swiper-slide>
+              </swiper-container>
+            </div>
+            <!-- <ion-slides class="mt-3" mode="ios" scrollbar="ios" [options]="slideOpts">
+              <ion-slide *ngFor="let item of capture; let index = index">
+                <div class="images">
+                  <ion-icon name="close-circle" (click)="removeCapture(item)"></ion-icon>
+                  <img [src]="item" class="img-fluid" alt="image">
+                </div>
+              </ion-slide>
+            </ion-slides> -->
+          </ion-list>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-6">
+      <ion-button  expand="block" color="warning" (click)="onSubmit()" [disabled]="formReactive.invalid">
+        {{ "GLOBAL.SEND" | translate | uppercase }}
+      </ion-button>
+    </div>
+  </div>
+</ng-container>
+<ng-template #serviceOpen>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{ 'SERVICE.SUBACTIVE' | translate | uppercase }}</ion-card-subtitle>
+      <ion-card-title>{{ 'SERVICE.ACTIVE' | translate | uppercase }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ 'SERVICE.ACTIVEMSG' | translate }}
+    </ion-card-content>
+  </ion-card>
+</ng-template>

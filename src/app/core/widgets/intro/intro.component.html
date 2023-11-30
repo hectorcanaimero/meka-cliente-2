@@ -1,0 +1,8 @@
+<div id="intro" class="container">
+  <ion-label>
+    <h1 *ngIf="user && user.first_name">
+      {{ 'WIDGET.INTRO.HI' | translate }}, {{ user.first_name }}
+    </h1>
+    <p>{{ 'WIDGET.INTRO.NEED_SOME_HELP_TODAY' | translate }}</p>
+  </ion-label>
+</div>

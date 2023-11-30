@@ -1,0 +1,94 @@
+
+ion-header, ion-footer {
+  ion-toolbar {
+    --background: #fafafa;
+    ion-title {
+      --color: #080F18;
+    }
+  }
+}
+
+ion-content {
+  --background: #fafafa;
+  ion-list {
+    background: none;
+    ion-item {
+      --background: none;
+    }
+  }
+  ion-accordion {
+    background-color: #fafafa;
+    // color: #4d4d4d;
+    ion-item {
+      --background: rgb(233, 233, 233);
+      --detail-icon-color: red;
+      ion-label, ion-icon, .ion-accordion-toggle-icon {
+        --color: #4d4d4d;
+        color: #4d4d4d !important;
+      }
+    }
+    ion-list {
+      background: none;
+      ion-item {
+        --background: none;
+        ion-icon {
+          color: #4d4d4d;
+        }
+      }
+    }
+  }
+  .map-wrapper {
+    position: relative;
+    --background: none;
+    --height: 200px;
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    #map {
+      width: 100%;
+      height: 250px;
+    }
+    #map_center {
+      position: absolute;
+      z-index: 99;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      margin-left: -21px;
+      margin-top: -41px;
+    }
+  }
+}
+
+.photo {
+  --background: none;
+  --height: 300px;
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+  ion-slides {
+    margin: 0.5rem 0;
+    ion-slide {
+      img {
+        height: 250px;
+        width: auto;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+.status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chat {
+  ion-item {
+    --border-radius: 25px;
+  }
+}
+
+
+agm-map  {
+  height: 300px;
+}
